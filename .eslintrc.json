@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript"
+  ],
+  "rules": {
+    "react-hooks/exhaustive-deps": 0,
+    "@typescript-eslint/no-explicit-any": 0
+  }
+}

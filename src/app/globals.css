@@ -6,6 +6,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -33,6 +39,14 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -59,6 +73,14 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -70,6 +92,25 @@ body {
     @apply bg-background text-foreground;
   }
 }
-.container{
-  @apply max-w-[1320px] mx-auto px-4 min-[1320px]:px-0 ;
+
+
+
+
+.card {
+  @apply border-2 p-6 rounded-lg;
+}
+.dashboard_grid {
+  @apply grid grid-cols-12 gap-4;
+}
+.dashboard_grid_col_8 {
+  @apply col-span-12 lg:col-span-8 rounded-xl bg-muted/50;
+}
+.dashboard_grid_col_4 {
+  @apply col-span-12 lg:col-span-4 rounded-xl bg-muted/50;
+}
+.title {
+  @apply text-xl font-semibold text-gray-900;
+}
+.sub_title {
+  @apply text-base font-normal text-gray-500;
 }

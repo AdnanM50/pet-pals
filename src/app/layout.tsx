@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "@/providers";
 import { cookies } from "next/headers";
-import { initializeAxiosInstance } from "@/hooks/instance";
+import { initializeAxiosInstance } from "@/helpers/instance";
+
 
 export const metadata: Metadata = {
   title: "Create Next App",

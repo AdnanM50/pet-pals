@@ -1,8 +1,9 @@
 import React from 'react'
 import FetchProvider from './fetch_provider'
 import UserProvider from './user_provider'
-import { initializeAxiosInstance } from '@/hooks/instance';
+// import { initializeAxiosInstance } from '../hooks/instance';
 import { cookies } from 'next/headers';
+import { initializeAxiosInstance } from '@/helpers/instance';
 
 const Providers = async ({ children }: { children: React.ReactNode }) => {
   const token = cookies().get("accessToken")?.value;

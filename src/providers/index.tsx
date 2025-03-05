@@ -1,34 +1,16 @@
-import React from 'react'
-import FetchProvider from './fetch_provider'
-import UserProvider from './user_provider'
-import { initializeAxiosInstance } from '@/hooks/instance';
-import { cookies } from 'next/headers';
+// filepath: /e:/Next-apps/pet-pals/src/providers/ApiProvider.tsx
+'use client';
+import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const Providers = async ({ children }: { children: React.ReactNode }) => {
-  const token = cookies().get("accessToken")?.value;
+const queryClient = new QueryClient();
 
-  if (token) {
-    initializeAxiosInstance(token);
-  }
-
-  const user = await fetch(`${process.env.backendUrl}/user`,
-    {
-      credentials: 'include',
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    }
-  ).then((res) => res.json().then((data) => data?.data));
-
+const ApiProvider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <FetchProvider>
-      <UserProvider user={user}>
-        {children}
-      </UserProvider>
-    </FetchProvider>
-  )
-}
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  );
+};
 
-export default Providers
+export default ApiProvider;

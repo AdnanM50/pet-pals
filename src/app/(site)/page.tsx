@@ -2,32 +2,41 @@
 
 import AboutSection from '@/components/home/about'
 import Hero from '@/components/home/hero'
-import { getuser } from '@/helpers/endpiont'
-import { useFetch } from '@/helpers/use_fetch'
+import { useFetch } from '@/hooks/use_fetch'
+// import { getProducts } from '@/hooks/endpiont'
+// import { useFetch } from '@/hooks/use_fetch'
+// import { getdata } from '@/hooks/endpiont'
+// import { useFetch } from '@/hooks/use_fetch'
+// import { getuser } from '@/helpers/endpiont'
+// import { useFetch } from '@/helpers/use_fetch'
 import React, { useEffect, useState } from 'react'
 
 const Page = () => {
-  // const { data, getData } = useFetch(getuser)
+  const { data, error, isLoading } = useFetch('users');
+
+  // React.useEffect(() => {
+  //   getData({});
+  // }, []);
   // console.log("🚀 ~ Page ~ data:", data)
-  const [data, setData] = useState(null)
+  // const [data, setData] = useState(null)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`${process.env.backendUrl}${getuser}`, {
-        credentials: 'include',
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      const result = await response.json()
-      setData(result)
-    }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch(`${process.env.backendUrl}${getuser}`, {
+  //       credentials: 'include',
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+  //     const result = await response.json()
+  //     setData(result)
+  //   }
 
-    fetchData()
-  }, [])
+  //   fetchData()
+  // }, [])
 
-  console.log("🚀 ~ Page ~ data:", data)
+  console.log("🚀 ~ Page ~ data:123", data?.users)
 
 
   return (

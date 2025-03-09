@@ -1,7 +1,8 @@
+// methods.ts
 import axios from 'axios';
 
 const apiClient = axios.create({
-    baseURL: process.env.backendUrl + 'api',
+    baseURL: process.env.backendUrl + 'api', // Ensure this matches your backend URL
     headers: {
         'Content-Type': 'application/json',
     },
@@ -16,7 +17,7 @@ apiClient.interceptors.request.use((config) => {
     return config;
 });
 
-export const get = async (url:any, config = {}) => {
+export const get = async (url: string, config = {}) => {
     try {
         const response = await apiClient.get(url, config);
         return response.data;
@@ -25,7 +26,7 @@ export const get = async (url:any, config = {}) => {
     }
 };
 
-export const post = async (url:any, data:any, config = {}) => {
+export const post = async (url: string, data: any, config = {}) => {
     try {
         const response = await apiClient.post(url, data, config);
         return response.data;
@@ -34,7 +35,7 @@ export const post = async (url:any, data:any, config = {}) => {
     }
 };
 
-export const put = async (url:any, data:any, config = {}) => {
+export const put = async (url: string, data: any, config = {}) => {
     try {
         const response = await apiClient.put(url, data, config);
         return response.data;
@@ -43,7 +44,7 @@ export const put = async (url:any, data:any, config = {}) => {
     }
 };
 
-export const patch = async (url:any, data:any, config = {}) => {
+export const patch = async (url: string, data: any, config = {}) => {
     try {
         const response = await apiClient.patch(url, data, config);
         return response.data;
@@ -52,7 +53,7 @@ export const patch = async (url:any, data:any, config = {}) => {
     }
 };
 
-export const del = async (url:any, config = {}) => {
+export const del = async (url: string, config = {}) => {
     try {
         const response = await apiClient.delete(url, config);
         return response.data;

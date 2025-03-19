@@ -10,7 +10,7 @@ const Page = () => {
   // const { data, error, isLoading } = useFetch(fetchUserList, []);
  
 
-  console.log("🚀 ~ Page ~ data:123", data?.data)
+  console.log("🚀 ~ Page ~ data:123 about ", data?.data)
 
 
   return (

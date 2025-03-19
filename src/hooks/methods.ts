@@ -1,26 +1,14 @@
-// methods.ts
-import axios from 'axios';
-
-const apiClient = axios.create({
-    baseURL: process.env.backendUrl + 'api', // Ensure this matches your backend URL
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
-
-// Interceptor to add the bearer token to private requests
-apiClient.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
-    if (token && config.url && config.url.startsWith('/private')) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-});
-
+'use server';
 export const get = async (url: string, config = {}) => {
     try {
-        const response = await apiClient.get(url, config);
-        return response.data;
+        const response = await fetch(`${process.env.backendUrl}api${url}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            ...config,
+        });
+        return response.json();
     } catch (error) {
         throw error;
     }
@@ -28,8 +16,15 @@ export const get = async (url: string, config = {}) => {
 
 export const post = async (url: string, data: any, config = {}) => {
     try {
-        const response = await apiClient.post(url, data, config);
-        return response.data;
+        const response = await fetch(`${process.env.backendUrl}api${url}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            ...config,
+        });
+        return response.json();
     } catch (error) {
         throw error;
     }
@@ -37,8 +32,15 @@ export const post = async (url: string, data: any, config = {}) => {
 
 export const put = async (url: string, data: any, config = {}) => {
     try {
-        const response = await apiClient.put(url, data, config);
-        return response.data;
+        const response = await fetch(`${process.env.backendUrl}api${url}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            ...config,
+        });
+        return response.json();
     } catch (error) {
         throw error;
     }
@@ -46,8 +48,15 @@ export const put = async (url: string, data: any, config = {}) => {
 
 export const patch = async (url: string, data: any, config = {}) => {
     try {
-        const response = await apiClient.patch(url, data, config);
-        return response.data;
+        const response = await fetch(`${process.env.backendUrl}api${url}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            ...config,
+        });
+        return response.json();
     } catch (error) {
         throw error;
     }
@@ -55,8 +64,14 @@ export const patch = async (url: string, data: any, config = {}) => {
 
 export const del = async (url: string, config = {}) => {
     try {
-        const response = await apiClient.delete(url, config);
-        return response.data;
+        const response = await fetch(`${process.env.backendUrl}api${url}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            ...config,
+        });
+        return response.json();
     } catch (error) {
         throw error;
     }

@@ -1,18 +1,21 @@
 // useFetch.ts
-//'use client'; // Mark this as a Client Component
+
 
 import { useQuery } from '@tanstack/react-query';
 
 export const useFetch = (
-    endpointFn: () => Promise<any>, 
-    options = {} 
+    endpointFn: (params?: Record<string, any>) => Promise<any>, // Endpoint function
+    params: Record<string, any> = {}, // Parameters (can be path or query parameters)
+    options = {} // Additional options
 ) => {
-    const queryKey = [endpointFn.name]; 
+    // Determine if the endpoint function expects path or query parameters
+    const queryKey = [endpointFn.name, params]; // Include parameters in the query key
+
     const query = useQuery({
-        queryKey, 
-        queryFn: endpointFn,
+        queryKey, // Use the derived query key
+        queryFn: () => endpointFn(params), // Pass parameters to the endpoint function
         staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
-        ...options, 
+        ...options, // Additional options like `enabled`, `refetchOnWindowFocus`, etc.
     });
 
     // Manually refetch data

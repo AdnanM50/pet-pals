@@ -114,3 +114,21 @@ body {
 .sub_title {
   @apply text-base font-normal text-gray-500;
 }
+
+@keyframes move {
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+.animate-move {
+  animation: move 0.6s;
+}
+

@@ -1,109 +1,130 @@
-'use client'
-import { cn } from "@/lib/utils"
+"use client"
+
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Form } from '@/components/ui/form'
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import FormInput from '@/components/common/form/input'
-import PasswordInput from '@/components/common/form/password_input'
-import { onLogin } from "@/app/(site)/login/server_action"
+import { Input } from "@/components/ui/input"
 
-
-export const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6, {
-    message: 'Password must be at least 8 characters long',
-  }),
-})
-
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
-  const [loading, setLoading] = useState(false)
-  const form = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  })
-
-  function onSubmit(values: z.infer<typeof loginSchema>) {
-    console.log("🚀 ~ onSubmit ~ values:", values)
-    setLoading(true)
-    onLogin(values).then((data) => {
-      console.log("🚀 ~ onLogin ~ data:", data)
-      setLoading(false)
-    })
-  }
+export default function LoginForm() {
+  const [isActive, setIsActive] = useState(false)
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
-          <CardDescription>
-            Login with your Apple or Google account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff]">
+      <div
+        className={`bg-white rounded-[30px] shadow-[0_5px_15px_rgba(0,0,0,0.35)] relative overflow-hidden w-full max-w-[768px] min-h-[480px] ${isActive ? "active" : ""}`}
+      >
+        <div
+          className={`absolute top-0 h-full transition-all duration-1000 ease-in-out left-0 w-1/2 opacity-0 z-[1] ${
+            isActive ? "translate-x-full opacity-100 z-[5]" : ""
+          } ${isActive ? "animate-move" : ""}`}
+        >
+          <form className="bg-white flex flex-col items-center justify-center h-full px-10">
+            <h1 className="text-2xl mb-5 font-bold">Create Account</h1>
+            
+          
+            <Input
+              type="text"
+              placeholder="Name"
+              className="bg-[#eee] border-none my-2 py-2.5 px-4 text-sm rounded-lg w-full outline-none"
+            />
+            <Input
+              type="email"
+              placeholder="Email"
+              className="bg-[#eee] border-none my-2 py-2.5 px-4 text-sm rounded-lg w-full outline-none"
+            />
+            <Input
+              type="password"
+              placeholder="Password"
+              className="bg-[#eee] border-none my-2 py-2.5 px-4 text-sm rounded-lg w-full outline-none"
+            />
+            <Button className="bg-[#512da8] hover:bg-[#4527a0] text-white text-xs py-2.5 px-11 border border-transparent rounded-lg font-semibold tracking-wider uppercase mt-2.5 cursor-pointer">
+              Sign Up
+            </Button>
+          </form>
+        </div>
 
-          <div className="grid gap-6">
-            <div className="flex flex-col gap-4">
-              <Button variant="outline" className="w-full">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path
-                    d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"
-                    fill="currentColor"
-                  />
-                </svg>
-                Login with Apple
-              </Button>
-              <Button variant="outline" className="w-full">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path
-                    d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-                    fill="currentColor"
-                  />
-                </svg>
-                Login with Google
+        {/* Sign In Form */}
+        <div
+          className={`absolute top-0 h-full transition-all duration-1000 ease-in-out left-0 w-1/2 z-[2] ${
+            isActive ? "translate-x-full" : ""
+          }`}
+        >
+          <form className="bg-white flex flex-col items-center justify-center h-full px-10">
+            <h1 className="text-2xl font-bold">Sign In</h1>
+           
+            <span className="text-xs">or use your email password</span>
+            <Input
+              type="email"
+              placeholder="Email"
+              className="bg-[#eee] border-none my-2 py-2.5 px-4 text-sm rounded-lg w-full outline-none"
+            />
+            <Input
+              type="password"
+              placeholder="Password"
+              className="bg-[#eee] border-none my-2 py-2.5 px-4 text-sm rounded-lg w-full outline-none"
+            />
+            <a href="#" className="text-[#333] text-xs no-underline my-4 mx-0">
+              Forget Your Password?
+            </a>
+            <Button className="bg-[#512da8] hover:bg-[#4527a0] text-white text-xs py-2.5 px-11 border border-transparent rounded-lg font-semibold tracking-wider uppercase mt-2.5 cursor-pointer">
+              Sign In
+            </Button>
+          </form>
+        </div>
+
+        {/* Toggle Container */}
+        <div
+          className={`absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-all duration-1000 ease-in-out z-[1000] ${
+            !isActive
+              ? "rounded-tl-[150px] rounded-bl-[100px]"
+              : "-translate-x-full rounded-tr-[150px] rounded-br-[100px]"
+          }`}
+        >
+          <div
+            className={`bg-gradient-to-r from-[#5c6bc0] to-[#512da8] text-white relative -left-full h-full w-[200%] transition-all duration-1000 ease-in-out ${
+              isActive ? "translate-x-1/2" : "translate-x-0"
+            }`}
+          >
+            {/* Toggle Left Panel */}
+            <div
+              className={`absolute w-1/2 h-full flex flex-col items-center justify-center px-8 text-center top-0 -translate-x-full transition-all duration-1000 ease-in-out ${
+                isActive ? "translate-x-0" : ""
+              }`}
+            >
+              <h1 className="text-2xl font-bold">Welcome Back!</h1>
+              <p className="text-sm leading-5 tracking-wide my-5">
+                Enter your personal details to use all of site features
+              </p>
+              <Button
+                onClick={() => setIsActive(false)}
+                variant="outline"
+                className="bg-transparent text-white hover:text-white hover:bg-[#4527a0]/20 text-xs py-2.5 px-11 border border-white rounded-lg font-semibold tracking-wider uppercase mt-2.5 cursor-pointer"
+              >
+                Sign In
               </Button>
             </div>
-            <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-              <span className="relative z-10 bg-background px-2 text-muted-foreground">
-                Or continue with
-              </span>
-            </div>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6">
-                <FormInput form={form} name="email" label="Email" placeholder="Email" />
-                <PasswordInput form={form} name="password" label="Password" placeholder="Password" />
-                <Button type="submit" loading={loading} className="w-full">Submit</Button>
-              </form>
-            </Form>
-            <div className="text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
-                Sign up
-              </a>
+
+            {/* Toggle Right Panel */}
+            <div
+              className={`absolute w-1/2 h-full flex flex-col items-center justify-center px-8 text-center top-0 right-0 transition-all duration-1000 ease-in-out ${
+                isActive ? "translate-x-full" : ""
+              }`}
+            >
+              <h1 className="text-2xl font-bold">Hello, Friend!</h1>
+              <p className="text-sm leading-5 tracking-wide my-5">
+                Register with your personal details to use all of site features
+              </p>
+              <Button
+                onClick={() => setIsActive(true)}
+                variant="outline"
+                className="bg-transparent text-white hover:text-white hover:bg-[#4527a0]/20 text-xs py-2.5 px-11 border border-white rounded-lg font-semibold tracking-wider uppercase mt-2.5 cursor-pointer"
+              >
+                Sign Up
+              </Button>
             </div>
           </div>
-        </CardContent>
-      </Card>
-      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        </div>
       </div>
     </div>
   )
 }
+
